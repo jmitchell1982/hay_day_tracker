@@ -1,0 +1,23 @@
+{
+  "buildingPriority": {
+    "barn": 10,
+    "silo": 10,
+    "tackle_box": 1,
+    "town_hall": 7,
+    "train_station": 7,
+    "personal_train": 7,
+    "beach_cafe": 4,
+    "bed_and_breakfast": 4,
+    "cinema": 4,
+    "diner": 4,
+    "gift_shop": 4,
+    "grocery_store": 4,
+    "spa": 4,
+    "expansion": 2
+  },
+  "rarityWeight": {
+    "Common": 1,
+    "Uncommon": 10,
+    "Rare": 100
+  }
+}

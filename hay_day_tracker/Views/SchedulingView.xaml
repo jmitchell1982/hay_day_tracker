@@ -1,0 +1,89 @@
+<UserControl x:Class="HayDayPlanner.Views.SchedulingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:HayDayPlanner.ViewModels">
+
+    <UserControl.Resources>
+        <!-- Shared row style: highlights any row whose building has a Warning
+             entry in SchedulingResult, per the per-row-highlighting decision. -->
+        <Style x:Key="SchedulingRowStyle" TargetType="DataGridRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsWarning}" Value="True">
+                    <Setter Property="Background" Value="#FFF3CD" />
+                    <Setter Property="ToolTip" Value="{Binding WarningDetail}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Building filter: narrows Uptime/Profit to that building's own rows,
+             and Ingredients to whatever that building's products need upstream. -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,8">
+            <TextBlock Text="Filter by building:" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <ComboBox Width="160"
+                      ItemsSource="{Binding BuildingFilterOptions}"
+                      SelectedItem="{Binding SelectedBuildingFilter}"
+                      DisplayMemberPath="DisplayName" />
+            <TextBlock Text="Filter by schedule:" VerticalAlignment="Center" Margin="16,0,8,0" />
+            <ComboBox Width="160"
+                      ItemsSource="{Binding ScheduleFilterOptions}"
+                      SelectedItem="{Binding SelectedScheduleFilter}" />
+        </StackPanel>
+
+        <!-- Uptime -->
+        <GroupBox Header="Uptime (8h overnight)" Grid.Row="1" Margin="0,0,0,6">
+            <DataGrid ItemsSource="{Binding UptimeRows}"
+                      RowStyle="{StaticResource SchedulingRowStyle}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Building" Binding="{Binding BuildingName}" />
+                    <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" />
+                    <DataGridTextColumn Header="Qty" Binding="{Binding Quantity}" />
+                    <DataGridTextColumn Header="Time/Unit (min)" Binding="{Binding TimePerUnitMinutes}" />
+                    <DataGridTextColumn Header="Total Time (min)" Binding="{Binding TotalTimeMinutes}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Profit -->
+        <GroupBox Header="Profit (16h day budget, greedy)" Grid.Row="2" Margin="0,0,0,6">
+            <DataGrid ItemsSource="{Binding ProfitRows}"
+                      RowStyle="{StaticResource SchedulingRowStyle}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Building" Binding="{Binding BuildingName}" />
+                    <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" />
+                    <DataGridTextColumn Header="Qty" Binding="{Binding Quantity}" />
+                    <DataGridTextColumn Header="Time/Unit (min)" Binding="{Binding TimePerUnitMinutes}" />
+                    <DataGridTextColumn Header="Total Time (min)" Binding="{Binding TotalTimeMinutes}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Ingredients -->
+        <GroupBox Header="Ingredients (derived demand)" Grid.Row="3">
+            <DataGrid ItemsSource="{Binding IngredientRows}"
+                      RowStyle="{StaticResource SchedulingRowStyle}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Building" Binding="{Binding BuildingName}" />
+                    <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" />
+                    <DataGridTextColumn Header="Qty" Binding="{Binding Quantity}" />
+                    <DataGridTextColumn Header="Time/Unit (min)" Binding="{Binding TimePerUnitMinutes}" />
+                    <DataGridTextColumn Header="Total Time (min)" Binding="{Binding TotalTimeMinutes}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>

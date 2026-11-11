@@ -1,0 +1,76 @@
+<UserControl x:Class="HayDayPlanner.Views.UpgradesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="800">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="16">
+        <StackPanel>
+
+            <TextBlock Text="Storage &amp; Buildings" FontWeight="Bold" FontSize="16" Margin="0,0,0,8" />
+            <DataGrid ItemsSource="{Binding ProgressRows}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      MaxHeight="220"
+                      Margin="0,0,0,24">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Building" Binding="{Binding Name}" IsReadOnly="True" Width="150" />
+                    <DataGridTextColumn Header="Tracking" Binding="{Binding ValueLabel}" IsReadOnly="True" Width="70" />
+                    <DataGridTextColumn Header="Current Value" Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" Width="90" />
+                    <DataGridTextColumn Header="Next Upgrade Cost" Binding="{Binding NextCostDisplay}" IsReadOnly="True" Width="300" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="Town Shops" FontWeight="Bold" FontSize="16" Margin="0,0,0,8" />
+            <DataGrid ItemsSource="{Binding ShopRows}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      MaxHeight="260"
+                      Margin="0,0,0,24">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Shop" Binding="{Binding Name}" IsReadOnly="True" Width="140" />
+                    <DataGridTextColumn Header="Slots" Binding="{Binding SlotsLevel, UpdateSourceTrigger=PropertyChanged}" Width="60" />
+                    <DataGridTextColumn Header="Coins" Binding="{Binding CoinsLevel, UpdateSourceTrigger=PropertyChanged}" Width="60" />
+                    <DataGridTextColumn Header="XP/Rep" Binding="{Binding XpReputationLevel, UpdateSourceTrigger=PropertyChanged}" Width="60" />
+                    <DataGridTextColumn Header="Svc Time" Binding="{Binding ServiceTimeLevel, UpdateSourceTrigger=PropertyChanged}" Width="70" />
+                    <DataGridTextColumn Header="Overall" Binding="{Binding OverallLevel}" IsReadOnly="True" Width="60" />
+                    <DataGridTextColumn Header="Next Upgrade Cost" Binding="{Binding NextCostDisplay}" IsReadOnly="True" Width="260" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="Expansion Target" FontWeight="Bold" FontSize="16" Margin="0,0,0,8" />
+            <Grid DataContext="{Binding Expansion}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Map Pieces" VerticalAlignment="Center" Margin="0,4" />
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4" Width="80" HorizontalAlignment="Left"
+                         Text="{Binding MapPieceAmount, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Land Deeds" VerticalAlignment="Center" Margin="0,4" />
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,4" Width="80" HorizontalAlignment="Left"
+                         Text="{Binding LandDeedAmount, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Mallets" VerticalAlignment="Center" Margin="0,4" />
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="0,4" Width="80" HorizontalAlignment="Left"
+                         Text="{Binding MalletAmount, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Marker Stakes" VerticalAlignment="Center" Margin="0,4" />
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="0,4" Width="80" HorizontalAlignment="Left"
+                         Text="{Binding MarkerStakeAmount, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
